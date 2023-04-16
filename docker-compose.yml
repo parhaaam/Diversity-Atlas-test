@@ -1,0 +1,50 @@
+version: "3"
+
+networks:
+    mysql-phpmyadmin:
+        name: mysql-phpmyadmin
+        driver: bridge
+
+volumes:
+    mysqldata:
+        driver: local
+       
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "808:80"
+        depends_on:
+            - db
+        env_file:
+        - .env
+
+    db:
+        image: mysql:8.0
+        container_name: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: user_name
+            MYSQL_PASSWORD: password
+        ports:
+            - "6033:3306"
+        volumes:
+            - mysqldata:/var/lib/mysql
+            - ./database/faker.sql:/docker-entrypoint-initdb.d/start.sql:ro
+        networks:
+            - mysql-phpmyadmin
+    phpmyadmin:
+        image: phpmyadmin:5.2.0
+        container_name: phpmyadmin
+        links:
+            - db
+        environment:
+            PMA_HOST: db
+            PMA_PORT: 3306
+        ports:
+            - 8081:80
+        networks:
+            - mysql-phpmyadmin
