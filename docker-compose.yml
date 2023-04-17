@@ -34,7 +34,7 @@ services:
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
-            - "6033:3306"
+            - "127.0.0.1:6033:3306"
         volumes:
             - mysqldata:/var/lib/mysql
         networks:
