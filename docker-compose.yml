@@ -37,6 +37,7 @@ services:
             - "127.0.0.1:6033:3306"
         volumes:
             - mysqldata:/var/lib/mysql
+            - ./database/faker.sql:/.
         networks:
             - mysql-phpmyadmin
     phpmyadmin:
