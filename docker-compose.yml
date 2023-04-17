@@ -18,8 +18,8 @@ services:
             - "808:80"
         depends_on:
             - db
-        env_file:
-        - .env
+        volumes:
+            - ./.env:/app/.env
 
     db:
         image: mysql:8.0

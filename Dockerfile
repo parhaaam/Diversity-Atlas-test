@@ -13,5 +13,4 @@ RUN rm -rf /opt/docker/etc/nginx/vhost.conf           &&\
     chmod -R 777 storage                              &&\
     composer install                                  &&\
     php artisan optimize:clear                        &&\
-    php artisan key:generate                          &&\
     php artisan storage:link
