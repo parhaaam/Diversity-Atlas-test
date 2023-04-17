@@ -16,7 +16,7 @@ services:
             dockerfile: Dockerfile
         container_name: app
         ports:
-            - "808:80"
+            - "8888:80"
         depends_on:
             - db
         volumes:
@@ -27,16 +27,16 @@ services:
     db:
         image: mysql:8.0
         container_name: mysql
+        tty: true
         environment:
-            MYSQL_ROOT_PASSWORD: root_password
-            MYSQL_DATABASE: laravel
-            MYSQL_USER: user_name
-            MYSQL_PASSWORD: password
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
             - "6033:3306"
         volumes:
             - mysqldata:/var/lib/mysql
-            - ./database/faker.sql:/docker-entrypoint-initdb.d/start.sql:ro
         networks:
             - mysql-phpmyadmin
     phpmyadmin:
