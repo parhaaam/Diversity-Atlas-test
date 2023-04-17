@@ -21,6 +21,8 @@ services:
             - db
         volumes:
             - ./.env:/app/.env
+        networks:
+            - mysql-phpmyadmin
 
     db:
         image: mysql:8.0
