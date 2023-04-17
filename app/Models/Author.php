@@ -10,7 +10,7 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ["name"];
 
     public function books() : BelongsToMany
     {
